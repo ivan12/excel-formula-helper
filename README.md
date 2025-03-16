@@ -2,11 +2,11 @@
 
 An interactive tool to help researchers build and understand Excel formulas.
 
-![Excel Formula Helper](https://formula.vercel.app/preview.png)
+![Excel Formula Helper](https://formula-chi.vercel.app/preview.png)
 
 ## Live Demo
 
-Try it now: [https://formula.vercel.app/](https://formula.vercel.app/)
+Try it now: [https://formula-chi.vercel.app/](https://formula-chi.vercel.app/)
 
 ## About the Project
 
@@ -41,7 +41,7 @@ All created formulas are automatically saved using localStorage, allowing resear
 
 ## How to Use
 
-1. Visit [https://formula.vercel.app/](https://formula.vercel.app/)
+1. Visit [https://formula-chi.vercel.app/](https://formula-chi.vercel.app/)
 2. Select desired functions from the library
 3. Configure the necessary parameters
 4. View the result of the generated formula
