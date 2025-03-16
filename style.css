@@ -1,0 +1,372 @@
+body {
+    align-items: flex-start;
+    background-color: #121212;
+    box-sizing: border-box;
+    color: #ecf0f1;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    margin: 0;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.add-mapping-btn {
+    background: #1d593e;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    padding: 12px;
+    transition: all 0.3sease;
+}
+
+.add-mapping-btn:hover {
+    background: #23734f;
+}
+
+button {
+    background: linear-gradient(145deg, #3498db, #2980b9);
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    color: white;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    padding: 12px;
+    transition: background 0.3s ease, transform 0.2s ease;
+    width: 100%;
+}
+
+button:active {
+    transform: translateY(2px);
+}
+
+button:hover {
+    background: linear-gradient(145deg, #2980b9, #3498db);
+    transform: translateY(-2px);
+}
+
+.clear-btn {
+    background: #e74c3c;
+}
+
+.clear-btn:hover {
+    background: #c0392b;
+}
+
+.clear-input {
+    background: transparent;
+    border: none;
+    color: #bbb;
+    cursor: pointer;
+    font-size: 16px;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.clear-input:hover {
+    color: #3498db;
+}
+
+.container {
+    background: #1f1f1f;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 20px;
+    padding-top: 5px;
+    text-align: center;
+    width: 100%;
+}
+
+.copy-btn {
+    background: #27ae60;
+}
+
+.copy-btn:hover {
+    background: #2ecc71;
+}
+
+.copy-btn, .clear-btn {
+    border-radius: 8px;
+    color: white;
+    flex: 1;
+    font-weight: 600;
+    padding: 12px;
+    transition: background 0.3s ease;
+}
+
+.delete-btn {
+    background: #e74c3c;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 8px 16px;
+    transition: background 0.3s ease;
+}
+
+.delete-btn:hover {
+    background: #c0392b;
+}
+
+.examples {
+    color: #bbb;
+    font-size: 13px;
+    margin-top: 10px;
+}
+
+#formula-history {
+    max-height: 29rem;
+    overflow-y: auto;
+}
+
+.formula-type-info {
+    color: #666;
+    font-size: 13px;
+    font-style: italic;
+    margin-top: 5px;
+}
+
+h2 {
+    color: #ecf0f1;
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-bottom: 15px;
+}
+
+.hidden {
+    display: none;
+}
+
+.history-item {
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+    display: flex;
+    gap: 2rem;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.history-item:hover {
+    background-color: #f5f5f544;
+}
+
+input, select, button, textarea {
+    background-color: #333;
+    border: 2px solid #555;
+    border-radius: 8px;
+    box-sizing: border-box;
+    color: white;
+    font-size: 15px;
+    margin-bottom: 10px;
+    padding: 10px;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+input:focus, select:focus, button:focus, textarea:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 8px rgba(52, 152, 219, 0.8);
+    outline: none;
+}
+
+.input-group {
+    align-items: self-start;
+    flex-direction: column;
+    margin-bottom: 15px;
+    text-align: justify;
+}
+
+.input-row {
+    align-items: center;
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.input-row input,
+.input-row select {
+    width: calc(50% - 10px);
+}
+
+label {
+    color: #bbb;
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+#mapping-pair {
+    max-height: 15rem;
+    overflow-y: auto;
+}
+
+.mapping-pair {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.mapping-pair input {
+    flex: 1;
+    width: fit-content;
+}
+
+.output {
+    background: #333;
+    border: 2px solid #444;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    margin-top: 20px;
+    padding: 15px;
+    word-break: break-word;
+}
+
+.output-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.remove-mapping {
+    background: #a11717;
+    background: #e74c3cfc;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    height: auto;
+    margin-top: 0px;
+    padding: 5px 10px;
+    width: 4rem;
+    width: 50px;
+}
+
+.remove-mapping:hover {
+    background: #c0392b;
+}
+
+select {
+    background-color: #444;
+}
+
+::-webkit-scrollbar {
+    -webkit-box-shadow: inset 0 0 6px #222222;
+    background-color: #222222;
+    border-radius: 25px;
+    max-width: 11px;
+}
+
+::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #3498dbf5;
+    border-radius: 25px;
+    max-width: 11px;
+}
+
+.tab {
+    background: #44444463;
+    border: 2px solid #444;
+    border-bottom: none;
+    border-radius: 10px 10px 0 0;
+    color: #bbb;
+    cursor: pointer;
+    font-size: 14px;
+    margin-right: 15px;
+    overflow: hidden;
+    padding: 12px 20px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.tab.active {
+    background: #3498db82;
+    border: 2px solid #2588cb;
+    border-bottom: 1px solid #2588cb;
+    color: rgba(255, 255, 255, 0.821);
+    font-weight: 600;
+}
+
+.tab:hover {
+    background: #555;
+}
+
+.tab:last-child {
+    margin-right: 0;
+}
+
+.tabs {
+    border-bottom: 1px solid #444;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    background: #ededed08;
+    border-radius: 8px;
+    display: block;
+    max-width: 49em;
+    padding: 17px;
+}
+
+@media (max-width: 768px) {
+    body {
+        font-size: 14px;
+        padding: 15px;
+    }
+    
+    .container {
+        max-width: none;
+        padding: 15px;
+        width: 90%;
+    }
+    
+    .mapping-pair {
+        display: grid;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+    
+    .tab {
+        font-size: 12px;
+        margin-right: 10px;
+        padding: 8px 15px;
+    }
+    
+    .tabs {
+        flex-wrap: nowrap;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 12px;
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 10px;
+        width: 100%;
+    }
+}

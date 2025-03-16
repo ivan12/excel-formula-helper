@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="author" content="Ivan Amorim">
+      <title>Formula - Get excited!</title>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+      <link rel="stylesheet" href="style.css">
+   </head>
+   <body>
+      <div class="container">
+         <h2><i class="fas fa-flask"></i> Formula</h2>
+         <div class="tabs">
+            <div class="tab" data-tab="basic">Basic Formulas</div>
+            <div class="tab" data-tab="text">Text Manipulation</div>
+            <div class="tab active" data-tab="mapping">Value Manipulation</div>
+            <div class="tab" data-tab="date">Date Formatting</div>
+            <div class="tab" data-tab="history">History</div>
+         </div>
+         <!-- Tab: Basic Formulas -->
+         <div class="tab-content" id="basic-tab">
+            <div class="input-group">
+               <label>Cell Reference:</label>
+               <input type="text" id="basic-cell" placeholder="e.g., A1">
+            </div>
+            <div class="input-group">
+               <label>Formula Type:</label>
+               <select id="basic-formula-type" onchange="updateBasicFormulaInfo()">
+                  <option value="sum">SUM (Sums the values in the specified range)</option>
+                  <option value="average">AVERAGE (Calculates the average of the values in the specified range)</option>
+                  <option value="count">COUNT (Counts the number of cells with values in the specified range)</option>
+                  <option value="max">MAX (Finds the maximum value in the specified range)</option>
+                  <option value="min">MIN (Finds the minimum value in the specified range)</option>
+                  <option value="isnumber">IS_NUMBER (Checks if the value is a number and returns the value or a default value)</option>
+               </select>
+               <div class="formula-type-info" id="basic-formula-info">
+                  Sums the values in the specified range.
+               </div>
+            </div>
+            <div class="input-group" id="basic-range-container">
+               <label>Range (for SUM, AVERAGE, etc.):</label>
+               <input type="text" id="basic-range" placeholder="e.g., A1:A10">
+            </div>
+            <div class="input-group hidden" id="basic-default-container">
+               <label>Default Value (if condition is not met):</label>
+               <input type="text" id="basic-default" placeholder="e.g., 0">
+            </div>
+            <button onclick="generateBasicFormula()">Generate Formula</button>
+         </div>
+         <!-- Tab: Text Manipulation -->
+         <div class="tab-content" id="text-tab">
+            <div class="input-group">
+               <label>Cell Reference:</label>
+               <input type="text" id="text-cell" placeholder="e.g., B2">
+            </div>
+            <div class="input-group">
+               <label>Manipulation Type:</label>
+               <select id="text-manipulation" onchange="toggleTextOptions()">
+                  <option value="left">LEFT (Extracts the first characters)</option>
+                  <option value="right">RIGHT (Extracts the last characters)</option>
+                  <option value="mid">MID (Extracts the middle characters)</option>
+                  <option value="len">LEN (Returns the text length)</option>
+                  <option value="upper">UPPERCASE (Converts text to uppercase)</option>
+                  <option value="lower">lowercase (Converts text to lowercase)</option>
+                  <option value="proper">PROPERCASE (Converts text to proper case)</option>
+                  <option value="trim">TRIM (Removes extra spaces)</option>
+                  <option value="substitute">SUBSTITUTE (Replaces specific text)</option>
+                  <option value="value">VALUE (Converts text to number)</option>
+               </select>
+            </div>
+            <div class="input-group" id="text-char-count">
+               <label>Number of Characters:</label>
+               <input type="number" id="text-char-num" value="1" min="1">
+            </div>
+            <div class="input-group hidden" id="text-start-pos">
+               <label>Starting Position:</label>
+               <input type="number" id="text-start" value="1" min="1">
+            </div>
+            <div class="input-group hidden" id="text-find-replace">
+               <label>Text to Find:</label>
+               <input type="text" id="text-find" placeholder="e.g., old text">
+               <label>Text to Replace:</label>
+               <input type="text" id="text-replace" placeholder="e.g., new text">
+            </div>
+            <div class="input-group hidden" id="text-default-container">
+               <label>Default Value (if unable to convert):</label>
+               <input type="text" id="text-default" placeholder="e.g., 0">
+            </div>
+            <button onclick="generateTextFormula()">Generate Formula</button>
+         </div>
+         <!-- Tab: Value Mapping -->
+         <div class="tab-content active" id="mapping-tab">
+            <div class="input-group">
+               <label>Cell Reference:</label>
+               <input type="text" id="mapping-cell" placeholder="e.g., CN3">
+            </div>
+            <div class="input-group">
+               <label>Mapping Type:</label>
+               <select id="mapping-type">
+                  <option value="text-to-number">Text to Number</option>
+                  <option value="number-to-text">Number to Text</option>
+                  <option value="text-to-text">Text to Text</option>
+               </select>
+            </div>
+            <div class="input-group">
+               <label>Mapping Pairs:</label>
+               <div id="mapping-pairs">
+                  <div class="mapping-pair">
+                     <input type="text" class="mapping-from" placeholder="Original Value">
+                     <input type="text" class="mapping-to" placeholder="Mapped Value">
+                     <button class="remove-mapping" onclick="removeMappingPair(this)"><i class="fas fa-trash-alt"></i></button>
+                  </div>
+               </div>
+               <button class="add-mapping-btn" onclick="addMappingPair()">+ Add Pair</button>
+            </div>
+            <div class="input-group">
+               <label>Default Value (if no mapping matches):</label>
+               <input type="text" id="mapping-default" placeholder="e.g., ''">
+            </div>
+            <button onclick="generateMappingFormula()">Generate Formula</button>
+            <div class="examples">
+               <p>Example: Importance scale mapping</p>
+               <p>0=Not at all important, 1=Little importance, 2=Some importance, 3=Important, 4=Very important</p>
+            </div>
+         </div>
+         <!-- Tab: Date Formatting -->
+         <div class="tab-content" id="date-tab">
+            <div class="input-group">
+               <label>Cell Reference:</label>
+               <input type="text" id="date-cell" placeholder="e.g., D5">
+            </div>
+            <div class="input-group">
+               <label>Formatting Type:</label>
+               <select id="date-format-type" onchange="toggleDateOptions()">
+                  <option value="format">Format Date</option>
+                  <option value="extract">Extract Component</option>
+                  <option value="convert">Convert Text to Date</option>
+                  <option value="calc">Date Calculation</option>
+               </select>
+            </div>
+            <div class="input-group" id="date-format-container">
+               <label>Date Format:</label>
+               <select id="date-format" onchange="toggleCustomDateFormat()">
+                  <option value="dd/mm/yyyy">DD/MM/YYYY</option>
+                  <option value="mm/dd/yyyy">MM/DD/YYYY</option>
+                  <option value="yyyy-mm-dd">YYYY-MM-DD</option>
+                  <option value="dd-mmm-yyyy">DD-MMM-YYYY</option>
+                  <option value="mmm dd, yyyy">MMM DD, YYYY</option>
+                  <option value="dd mmmm yyyy">DD MMMM YYYY</option>
+                  <option value="dddd, dd mmmm yyyy">DAY OF THE WEEK, DD MMMM YYYY</option>
+                  <option value="custom">Custom</option>
+               </select>
+            </div>
+            <div class="input-group hidden" id="date-custom-container">
+               <label>Custom Format:</label>
+               <input type="text" id="date-custom" placeholder="e.g., DD/MM/YYYY">
+               <div class="examples">
+                  <p>Examples: YYYY-MM-DD, DD MMM YYYY, DD/MM/YYYY hh:mm</p>
+               </div>
+            </div>
+            <div class="input-group hidden" id="date-extract-container">
+               <label>Component to Extract:</label>
+               <select id="date-extract">
+                  <option value="day">Day</option>
+                  <option value="month">Month</option>
+                  <option value="year">Year</option>
+                  <option value="weekday">Weekday</option>
+                  <option value="quarter">Quarter</option>
+                  <option value="week">Week of the Year</option>
+               </select>
+            </div>
+            <div class="input-group hidden" id="date-convert-container">
+               <label>Text Format:</label>
+               <input type="text" id="date-text-format" placeholder="e.g., 10 Sep 2025">
+               <div class="examples">
+                  <p>Examples: 10/09/2025, 10 Sep 2025, 10-09-2025</p>
+               </div>
+            </div>
+            <div class="input-group hidden" id="date-calc-container">
+               <label>Calculation Type:</label>
+               <select id="date-calc">
+                  <option value="days-between">Days Between Dates</option>
+                  <option value="add-days">Add Days</option>
+                  <option value="add-months">Add Months</option>
+                  <option value="add-years">Add Years</option>
+                  <option value="eom">End of Month</option>
+               </select>
+            </div>
+            <div class="input-group hidden" id="date-second-cell-container">
+               <label>Second Reference Cell:</label>
+               <input type="text" id="date-second-cell" placeholder="e.g., E5">
+            </div>
+            <div class="input-group hidden" id="date-value-container">
+               <label>Value to Add or Subtract:</label>
+               <input type="number" id="date-value" placeholder="e.g., 7" value="1">
+            </div>
+            <button onclick="generateDateFormula()">Generate Formula</button>
+         </div>
+         <!-- Tab: History -->
+         <div class="tab-content" id="history-tab">
+            <h3>History is saved only in your local browser memory!</h3>
+            <div id="formula-history">
+               <p>Your formula history will appear here...</p>
+            </div>
+            <button onclick="clearHistory()" class="clear-btn">Clear History</button>
+         </div>
+         <!-- Common Output Area -->
+         <div class="output" id="formula-output">
+            The generated formula will appear here
+         </div>
+         <div class="output-actions">
+            <button onclick="clearOutput()" class="clear-btn"><i class="fas fa-broom"></i> Clear</button>
+            <button onclick="copyFormula()" class="copy-btn"><i class="far fa-copy"></i> Copy</button>
+         </div>
+      </div>
+      <script src="script.js"></script>
+   </body>
+</html>
