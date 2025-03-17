@@ -1,3 +1,5 @@
+const separator = ',';
+
 document.querySelectorAll('.tab').forEach(tab => {
     tab.addEventListener('click', () => {
         document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -130,7 +132,7 @@ function generateMappingFormula() {
         return;
     }
 
-    let formula = '=IF(';
+    let formula = '=';
     let conditions = [];
 
     pairs.forEach(pair => {
@@ -141,15 +143,15 @@ function generateMappingFormula() {
         switch (mappingType) {
             case 'text-to-number':
                 condition = `${cell}="${fromValue}"`;
-                conditions.push(`IF(${condition}; ${toValue}; `);
+                conditions.push(`IF(${condition}${separator} ${toValue}${separator} `);
                 break;
             case 'number-to-text':
                 condition = `${cell}=${fromValue}`;
-                conditions.push(`IF(${condition}; "${toValue}"; `);
+                conditions.push(`IF(${condition}${separator} "${toValue}"${separator} `);
                 break;
             case 'text-to-text':
                 condition = `${cell}="${fromValue}"`;
-                conditions.push(`IF(${condition}; "${toValue}"; `);
+                conditions.push(`IF(${condition}${separator} "${toValue}"${separator} `);
                 break;
         }
     });
@@ -159,7 +161,7 @@ function generateMappingFormula() {
         nestedFormula = conditions[i] + nestedFormula + ')';
     }
 
-    formula = nestedFormula;
+    formula += nestedFormula;
 
     updateOutput(formula);
 }
