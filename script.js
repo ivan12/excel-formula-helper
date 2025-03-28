@@ -166,6 +166,87 @@ function generateMappingFormula() {
     updateOutput(formula);
 }
 
+function generateDateFormula() {
+    const cell = document.getElementById('date-cell').value.trim();
+    const formatType = document.getElementById('date-format-type').value;
+    let formula = '';
+
+    if (!cell) {
+        alert('Please enter a cell reference.');
+        return;
+    }
+
+    switch (formatType) {
+        case 'format': {
+            // Formatando uma data existente
+            const format = document.getElementById('date-format').value;
+            let customFormat =
+                format === 'custom' ? document.getElementById('date-custom').value.trim() : format;
+
+            if (!customFormat) {
+                alert('Please enter a custom date format.');
+                return;
+            }
+
+            formula = `TEXT(${cell}, "${customFormat}")`;
+            break;
+        }
+
+        case 'extract': {
+            // Extraindo partes da data
+            const extractType = document.getElementById('date-extract').value;
+            const extractMap = {
+                day: `DAY(${cell})`,
+                month: `MONTH(${cell})`,
+                year: `YEAR(${cell})`,
+                weekday: `TEXT(${cell}, "dddd")`,
+                quarter: `ROUNDUP(MONTH(${cell})/3, 0)`,
+                week: `WEEKNUM(${cell})`,
+            };
+
+            formula = extractMap[extractType] || '';
+            break;
+        }
+
+        case 'convert': {
+            // Converter texto para data e texto para outro formato de string
+            const targetFormat = document.getElementById('date-format').value;
+
+            if (targetFormat) {
+                formula = `TEXT(DATEVALUE(${cell}), ${targetFormat})`; // Converte um texto para outro formato de string
+            } else {
+                formula = `DATEVALUE(${cell})`; // Converte texto para um valor de data real
+            }
+            break;
+        }
+
+        case 'calc': {
+            // Cálculos com datas
+            const calcType = document.getElementById('date-calc').value;
+            const secondCell = document.getElementById('date-second-cell').value.trim();
+            const value = document.getElementById('date-value').value.trim();
+
+            const calcMap = {
+                'days-between': secondCell ? `ABS(${cell} - ${secondCell})` : '',
+                'add-days': `${cell} + ${value}`,
+                'add-months': `EDATE(${cell}, ${value})`,
+                'add-years': `DATE(YEAR(${cell}) + ${value}, MONTH(${cell}), DAY(${cell}))`,
+                eom: `EOMONTH(${cell}, 0)`,
+            };
+
+            if (calcType === 'days-between' && !secondCell) {
+                alert('Please enter a second reference cell.');
+                return;
+            }
+
+            formula = calcMap[calcType] || '';
+            break;
+        }
+    }
+
+    updateOutput(formula);
+}
+
 function generateTextFormula() {
     const cell = document.getElementById('text-cell').value.trim();
     const manipulation = document.getElementById('text-manipulation').value;
